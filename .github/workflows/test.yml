@@ -15,6 +15,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run My Custom Action
-        uses: ./.github/workflows/tests/action.yml
+        uses: ./.github/workflows/tests/
         with:
           environment: 'qa'
