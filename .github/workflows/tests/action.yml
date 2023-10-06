@@ -2,7 +2,7 @@ name: Run Tests in Environment
 description: 'Run all Tests for Environment'
 
 inputs:
-  environment:  # Environment we are running the tests in
+    environment:  # Environment we are running the tests in
     description: 'Environment'
     required: true
     default: 'dev'
@@ -13,14 +13,14 @@ jobs:
     steps:
 
       - name: Step1
-        run: echo Hello ${{ github.event.inputs.environment }}.
+        run: echo Hello $environment.
       - name: Install Dependencies
         run: |
           npm ci
           npx playwright install
   
       - name: End to End Testing
-        run: npm run test --process=$environment
+        run: npm run test --process=${{ inputs.environment }}
   
       - name: Unit Testing
         run: npm run test:unit
