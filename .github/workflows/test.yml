@@ -8,7 +8,7 @@ on:
 
 jobs:
   test_job:
-    uses: ./.github/workflows/test_sub.yml@main
+    uses: ./.github/workflows/test_sub.yml
     with:
       environment: 'qa'
       secrets: inherit
