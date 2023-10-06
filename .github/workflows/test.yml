@@ -13,8 +13,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Run My Custom Action
-        uses: ./.github/workflows/tests/
+      - name: Run tests 
+        uses: ./.github/workflows/tests/test_sub.ymlm@main
         with:
-          environment: 'qa'
+            environment: 'qa'
