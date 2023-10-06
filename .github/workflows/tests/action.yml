@@ -7,17 +7,19 @@ inputs:
     default: 'dev'
 
 runs:
-  using: "composite"
-  steps:
-    - run: echo Hello $environment.
-      shell: bash
-    - id: install-pw
-      run: |
-        npm ci
-        npx playwright install
+  jobs:
+    test_job:
+        runs-on: ubuntu-latest:
+            steps:
+                - run: echo Hello $environment.
+                shell: bash
+                - id: install-pw
+                run: |
+                    npm ci
+                    npx playwright install
 
-    - id: End to End Testing
-      run: npm run test --process=$input
+                - id: End to End Testing
+                run: npm run test --process=$input
 
-    - id: Unit Testing
-      run: npm run test:unit
+                - id: Unit Testing
+                run: npm run test:unit
