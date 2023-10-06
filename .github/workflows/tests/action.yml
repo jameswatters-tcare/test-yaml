@@ -6,18 +6,17 @@ inputs:
     required: true
     default: 'dev'
 
-jobs:
-  test:
-    steps:
-      - name: Step1
-        run: echo Hello $environment.
-      - name: Install Dependencies
-        run: |
-          npm ci
-          npx playwright install
-  
-      - name: End to End Testing
-        run: npm run test --process=$input
-  
-      - name: Unit Testing
-        run: npm run test:unit
+runs:
+  steps:
+    - name: Step1
+    run: echo Hello $environment.
+    - name: Install Dependencies
+    run: |
+      npm ci
+      npx playwright install
+
+    - name: End to End Testing
+    run: npm run test --process=$input
+
+    - name: Unit Testing
+    run: npm run test:unit
