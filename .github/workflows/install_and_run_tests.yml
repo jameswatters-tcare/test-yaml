@@ -1,0 +1,72 @@
+name: Install Dependencies and Run Tests
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: 'Environment for running tests'
+        required: true
+        type: string
+    secrets:
+      mySecret:
+        required: true
+
+jobs:
+  install_and_run_tests:
+    runs-on: ubuntu-latest
+    env:
+      # Set environment variables using secrets
+      MY_SECRET: ${{ secrets.mySecret }}
+    name: Run e2e tests in ${{ inputs.environment }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+
+      - name: Install Dependencies
+        run: |
+          npm ci
+          npx playwright install
+
+      - name: End to End Testing
+        run: npm run test:${{ inputs.environment }}
+
+      - name: Unit Testing
+        run: npm run test:unit
+
+
+# name: Run Tests in Environment
+# on:
+#   workflow_call:
+#     inputs:
+#         environment:
+#             required: true
+#             type: string
+
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - run: echo Hello ${{ inputs.environment }}.
+
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: 14
+
+#       - name: Install Dependencies
+#         run: |
+#           npm ci
+#           npx playwright install
+
+#       - name: End to End Testing
+#         run: npm run test --process=${{ inputs.environment }}
+
+#       - name: Unit Testing
+#         run: npm run test:unit

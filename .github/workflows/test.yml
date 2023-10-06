@@ -1,18 +1,83 @@
-name: My Workflow
+name: Run Tests in Environment
 
 on:
-    push:
-      branches: [ main, master ]
-    pull_request:
-      branches: [ main, master ]
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
 
 jobs:
   test_job:
+    uses: ./.github/workflows/install_and_run_tests.yml
+    with:
+      environment: 'qa'  # Replace 'qa' with the desired environment variable
+    secrets: 
+        mySecret: "THIS IS THE secret VALUE"
+  next_test_job:
+    needs: test_job
     runs-on: ubuntu-latest
-    name: A job to test my tests running
     steps:
-      - uses: actions/checkout@v4
-      - id: test_process
-        uses: ./tests
-        with:
-            environment: 'qa'
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+
+      - name: Install Dependencies
+        run: |
+          npm ci
+          npx playwright install
+
+      - name: Unit Testing
+        run: npm run test:unit
+
+
+
+    # runs-on: ubuntu-latest
+    # steps:
+    #   - name: Checkout code
+    #     uses: actions/checkout@v4
+
+    #   - name: Set up Node.js
+    #     uses: actions/setup-node@v2
+
+    #   - name: Trigger Install and Run Tests Workflow
+    #     uses: ./.github/workflows/install_and_run_tests.yml
+    #     with:
+    #       environment: 'qa'  # Replace 'qa' with the desired environment variable
+
+
+# name: Run Tests in Environment
+
+# on:
+#   push:
+#     branches: [main, master]
+#   pull_request:
+#     branches: [main, master]
+
+# jobs:
+#   test_job:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v2
+
+#       - name: Install Dependencies
+#         run: |
+#           npm ci
+#           npx playwright install
+
+#       - name: End to End Testing
+#         run: npm run test --process=${{ inputs.environment }}
+
+#       - name: Unit Testing
+#         run: npm run test:unit
+
+# jobs:
+#   test_job:
+#     uses: ./.github/workflows/test_sub.yml
+#     with:
+#       environment: 'qa'
