@@ -2,10 +2,10 @@ name: Run Tests in Environment
 description: 'Run all Tests for Environment'
 
 inputs:
-    environment:  # Environment we are running the tests in
-    description: 'Environment'
-    required: true
-    default: 'dev'
+  environment:  # Environment we are running the tests in
+  description: 'Environment'
+  required: true
+  default: 'dev'
 
 jobs:
   test:
@@ -20,7 +20,7 @@ jobs:
           npx playwright install
   
       - name: End to End Testing
-        run: npm run test --process=${{ inputs.environment }}
+        run: npm run test --process=$input
   
       - name: Unit Testing
         run: npm run test:unit
