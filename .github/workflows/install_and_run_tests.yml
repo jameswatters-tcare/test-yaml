@@ -17,6 +17,7 @@ jobs:
     env:
       # Set environment variables using secrets
       MY_SECRET: ${{ secrets.mySecret }}
+    name: Run e2e tests in ${{ inputs.environment }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

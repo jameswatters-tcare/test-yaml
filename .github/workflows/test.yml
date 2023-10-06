@@ -14,6 +14,7 @@ jobs:
     secrets: 
         mySecret: "THIS IS THE secret VALUE"
   next_test_job:
+    needs: test_job
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
