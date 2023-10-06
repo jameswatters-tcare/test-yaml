@@ -21,11 +21,6 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
 
-      - name: Trigger Install and Run Tests Workflow
-        uses: ./.github/workflows/install_and_run_tests.yml
-        with:
-          environment: 'qa'  # Replace 'qa' with the desired environment variable
-
 
 
 
