@@ -7,16 +7,17 @@ inputs:
     default: 'dev'
 
 runs:
+  using: "composite"
   steps:
-    - name: Step1
-    run: echo Hello $environment.
-    - name: Install Dependencies
-    run: |
-      npm ci
-      npx playwright install
+    - run: echo Hello $environment.
+      shell: bash
+    - id: install-pw
+      run: |
+        npm ci
+        npx playwright install
 
-    - name: End to End Testing
-    run: npm run test --process=$input
+    - id: End to End Testing
+      run: npm run test --process=$input
 
-    - name: Unit Testing
-    run: npm run test:unit
+    - id: Unit Testing
+      run: npm run test:unit
