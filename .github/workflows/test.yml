@@ -11,6 +11,11 @@ jobs:
     uses: ./.github/workflows/install_and_run_tests.yml
     with:
       environment: 'qa'  # Replace 'qa' with the desired environment variable
+    secrets:
+        mySecret: "THIS IS THE secret VALUE"
+
+
+
     # runs-on: ubuntu-latest
     # steps:
     #   - name: Checkout code

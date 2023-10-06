@@ -7,10 +7,16 @@ on:
         description: 'Environment for running tests'
         required: true
         type: string
+    secrets:
+      mySecret:
+        required: true
 
 jobs:
   install_and_run_tests:
     runs-on: ubuntu-latest
+    env:
+      # Set environment variables using secrets
+      MY_SECRET: ${{ secrets.mySecret }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -24,7 +30,7 @@ jobs:
           npx playwright install
 
       - name: End to End Testing
-        run: npm run test --process=${{ inputs.environment }}
+        run: npm run test --project=${{ inputs.environment }}
 
       - name: Unit Testing
         run: npm run test:unit
