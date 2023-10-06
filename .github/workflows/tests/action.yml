@@ -1,17 +1,14 @@
-name: Run Tests in Environment
+name: 'Run Tests in Environment'
 description: 'Run all Tests for Environment'
-
 inputs:
   environment:  # Environment we are running the tests in
-  description: 'Environment'
-  required: true
-  default: 'dev'
+    description: 'Environment'
+    required: true
+    default: 'dev'
 
 jobs:
   test:
-    runs-on: ubuntu-latest
     steps:
-
       - name: Step1
         run: echo Hello $environment.
       - name: Install Dependencies
