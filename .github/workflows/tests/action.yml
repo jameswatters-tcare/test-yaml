@@ -10,9 +10,11 @@ inputs:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT: ${{ inputs.environment }} # Pass the input value as an environment variable
     steps:
       - name: Step1
-        run: echo Hello ${{ inputs.environment }}.
+        run: echo "Hello $ENVIRONMENT."
       - name: Install Dependencies
         run: |
           npm ci
