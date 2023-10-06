@@ -30,7 +30,7 @@ jobs:
           npx playwright install
 
       - name: End to End Testing
-        run: npm run test --project=${{ inputs.environment }}
+        run: npm run test:${{ inputs.environment }}
 
       - name: Unit Testing
         run: npm run test:unit
